@@ -6,9 +6,11 @@ body {
     font-family: 'Montserrat', sans-serif;
 }
 
+/* 
 [data-turbo-preview] body {
     opacity: 0.5; 
 }
+ */
 
 a, a:hover  {
     color: #000;
