@@ -13,30 +13,6 @@ import './bootstrap';
 
 import { Modal } from 'bootstrap';
 
-const findCacheControlMeta = () => {
-    return document.querySelector('meta[name="turbo-cache-control"]');
-}
-
-document.addEventListener('show.bs.modal', () => {
-    if (findCacheControlMeta()) {
-        return;
-    }
-
-    const meta = document.createElement('meta');
-    meta.name = 'turbo-cache-control';
-    meta.content = 'no-cache';
-    meta.dataset.removable = true;
-
-    document.querySelector('head').appendChild(meta);
-})
-
-document.addEventListener('hidden.bs.modal', () => {
-    const meta = findCacheControlMeta(); 
-    if (meta && meta.dataset.removable) {
-        meta.remove();
-    }
-})
-
 document.addEventListener('turbo:before-cache',()=>{
     if (document.body.classList.contains('modal-open')) {
         const modalElement = document.querySelector('.modal.show');
