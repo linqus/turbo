@@ -1,4 +1,6 @@
 import { Controller } from 'stimulus';
+// import * as Turbo from '@hotwired/turbo';
+import { visit } from '@hotwired/turbo'; // import only visit function
 
 export default class extends Controller {
     count = 0;
@@ -9,7 +11,8 @@ export default class extends Controller {
         this.countTarget.innerText = this.count;
 
         if (this.count === 10) {
-            window.location.href = '/you-won';
+            // Turbo.visit('/you-won');
+            visit('/you-won'); // use imported function only from turbo
         }
     }
 }
