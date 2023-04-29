@@ -12,6 +12,10 @@ const TurboHelper = class {
 
         })
 
+        document.addEventListener('turbo:before-render', () => {
+            document.querySelector('#weatherwidget-io-js').remove();
+        });
+        
     }
 
     hideModal() {
