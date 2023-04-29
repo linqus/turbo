@@ -29,9 +29,6 @@ class CartController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/cart/_featured", name="_app_featured_product")
-     */
     public function _featuredProduct(ProductRepository  $productRepository): Response
     {
         $featuredProduct = $productRepository->findFeatured();
