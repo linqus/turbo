@@ -12,6 +12,7 @@ import './styles/app.css';
 import './bootstrap';
 
 import { Modal } from 'bootstrap';
+import Swal from 'sweetalert2';
 
 const findCacheControlMeta = () => {
     return document.querySelector('meta[name="turbo-cache-control"]');
@@ -45,5 +46,11 @@ document.addEventListener('turbo:before-cache',()=>{
         modal._backdrop._config.isAnimated = false;
         modal.hide();
         modal.dispose();
+    }
+
+    if (Swal.isVisible()) {
+        Swal.getPopup().style.animationDuration = "0ms";
+        Swal.close();
+
     }
 })
