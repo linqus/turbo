@@ -12,8 +12,8 @@ const TurboHelper = class {
 
         })
 
-        document.addEventListener('turbo:before-render', () => {
-            document.querySelector('#weatherwidget-io-js').remove();
+        document.addEventListener('turbo:render', () => {
+            this.initializeWeatherWidget();
         });
         
     }
@@ -39,6 +39,10 @@ const TurboHelper = class {
                 }
             })
         }
+    }
+
+    initializeWeatherWidget() {
+        __weatherwidget_init();
     }
     
 } 
