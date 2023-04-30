@@ -11,9 +11,19 @@
         <div class="pt-3">
             <h6 class="d-flex justify-content-between mb-3">
                 <strong>{{ featuredProduct.name }}</strong>
-
-                {{ featuredProduct.priceString|format_currency('USD') }}
+                    {{ featuredProduct.priceString|format_currency('USD') }}
             </h6>
+                {% if (long) %}
+                        {{ featuredProduct.description }}
+                {% else %}
+                        {{ featuredProduct.description|u.truncate(25,'...')|trim }}
+                        <a 
+                            data-turbo-frame="cart-sidebar"
+                            href="{{ path('_app_cart_featured',{long: 1} )}}"
+                        >More</a>
+                {% endif %}
+
+
 
             {{ include('product/_cart_add_controls.html.twig') }}
         </div>
