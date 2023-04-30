@@ -11,6 +11,16 @@ const TurboHelper = class {
         
 
         })
+
+        document.addEventListener('turbo:submit-start', (event) => {
+            console.log('submit start',event);
+/*          
+            event.detail.formSubmission.submitter.toggleAttribute('disabled', true);
+            event.detail.formSubmission.submitter.classList.remove('btn-primary');
+            event.detail.formSubmission.submitter.classList.add('btn-warning'); 
+*/
+
+        })
         
 
         this.initializeTransitions();
