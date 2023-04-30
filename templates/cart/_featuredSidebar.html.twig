@@ -13,14 +13,16 @@
                 <strong>{{ featuredProduct.name }}</strong>
                     {{ featuredProduct.priceString|format_currency('USD') }}
             </h6>
-                {% if (long) %}
+                {% if (long|default(false)) %}
                         {{ featuredProduct.description }}
                 {% else %}
                         {{ featuredProduct.description|u.truncate(25,'...')|trim }}
                         <a 
                             data-turbo-frame="cart-sidebar"
                             href="{{ path('_app_cart_featured',{long: 1} )}}"
+                            class="frame-loading-hide"
                         >More</a>
+                        <span class="frame-loading-show fas fa-spinner fa-spin"></span>
                 {% endif %}
 
 
