@@ -11,10 +11,6 @@ const TurboHelper = class {
         
 
         })
-
-        document.addEventListener('turbo:render', () => {
-            this.initializeWeatherWidget();
-        });
         
 
         this.initializeTransitions();
@@ -43,11 +39,7 @@ const TurboHelper = class {
         }
     }
 
-    initializeWeatherWidget() {
-        if (typeof __weatherwidget_init === 'function') {
-            __weatherwidget_init();
-        };
-    }
+
 
     isPreviewRendered() {
         return document.documentElement.hasAttribute('data-turbo-preview');
