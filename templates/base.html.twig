@@ -33,6 +33,11 @@
                                 Shopping Cart ({{ count_cart_items() }})
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_weather') }}">
+                                <span class="fas fa-sun"></span>
+                            </a>
+                        </li>
                         {% if is_granted('ROLE_ADMIN') %}
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ path('product_admin_index') }}">
@@ -80,17 +85,12 @@
             {{ stimulus_controller('made-with-love') }}
         >
         </div>
-        
-        <a class="weatherwidget-io" href="https://forecast7.com/pl/52d2321d01/warsaw/" data-label_1="WARSAW" data-label_2="WEATHER" data-theme="original" >WARSAW WEATHER</a>
-        <script>
-        !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
-        </script>
 
-        <script>
-            document.querySelector("#logo-img").addEventListener('click', (event) => {
-                event.preventDefault();
-                Turbo.visit('/cart');
-            })
-        </script>
+        {% block weather_widget %}
+        <turbo-frame id="weather-widget" src="{{ path('app_weather') }}">
+            Loading weather
+        </turbo-frame>
+  
+        {% endblock %}
     </body>
 </html>
