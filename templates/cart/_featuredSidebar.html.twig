@@ -13,7 +13,7 @@
                 <strong>{{ featuredProduct.name }}</strong>
                     {{ featuredProduct.priceString|format_currency('USD') }}
             </h6>
-                {% if (long|default(false)) %}
+                {% if (long) %}
                         {{ featuredProduct.description }}
                 {% else %}
                         {{ featuredProduct.description|u.truncate(25,'...')|trim }}
