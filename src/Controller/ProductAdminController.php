@@ -86,6 +86,7 @@ class ProductAdminController extends AbstractController
         return $this->renderForm('product_admin/edit.html.twig', [
             'product' => $product,
             'form' => $form,
+            'formTarget' => $request->headers->get('Turbo-Frame', '_top'),
         ]);
     }
 
