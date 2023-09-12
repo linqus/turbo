@@ -57,6 +57,7 @@ class ProductAdminController extends AbstractController
         return $this->renderForm('product_admin/' . $template, [
             'product' => $product,
             'form' => $form,
+            'formTarget' => $request->headers->get('Turbo-Frame', '_top'),
         ], new Response(
             null,
             $form->isSubmitted() && !$form->isValid() ? 422 : 200,
