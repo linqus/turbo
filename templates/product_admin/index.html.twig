@@ -5,9 +5,7 @@
 {% block body %}
 <div
     class="container-fluid container-xl mt-4"
-    {{ stimulus_controller('reload-content', {
-        url: path('product_admin_index', { ajax: 1 })
-    }) }}
+    
     data-action="modal-form:success->reload-content#refreshContent"
 >
     <div class="d-flex flex-row">
@@ -29,7 +27,7 @@
         </div>
     </div>
 
-    <div data-reload-content-target="content" class="table-responsive">
+    <div class="table-responsive">
         {{ include('product_admin/_list.html.twig') }}
     </div>
 
