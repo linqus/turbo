@@ -108,17 +108,14 @@ const TurboHelper = class {
 
         const fetchResponse = event.detail.fetchResponse;
 
-        if (!fetchResponse.succeeded || !fetchResponse.redirected) {
-            return;
-        }
-
-        if (!this.getCurrentFrame(event) || !this.getCurrentFrame(event).dataset.turboFormRedirect ) {
+        const redirectLocation = fetchResponse.response.headers.get('Turbo-Location');
+        if (!redirectLocation) {
             return;
         }
 
         event.preventDefault();
         Turbo.cache.clear();
-        Turbo.visit(fetchResponse.location);
+        Turbo.visit(redirectLocation);
     }
 
     beforeFetchRequest(event) {
@@ -135,19 +132,6 @@ const TurboHelper = class {
         }
 
         event.detail.fetchOptions.headers['Turbo-Form-Redirect'] = 1;
-
-        console.log(event.detail.fetchOptions);
-
-    }
-
-    getCurrentFrame(event) {
-        
-        let turboFrame 
-        //turboFrame = event.target.closest('turbo-frame');
-        //console.log(turboFrame);
-        turboFrame = document.querySelector('turbo-frame[busy]');
-        //console.log(turboFrame);
-        return turboFrame;
     }
 } 
 
