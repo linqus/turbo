@@ -103,6 +103,7 @@ const TurboHelper = class {
         }
 
         event.preventDefault();
+        Turbo.cache.clear();
         Turbo.visit(fetchResponse.location);
     }
 
