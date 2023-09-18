@@ -98,9 +98,7 @@ const TurboHelper = class {
             return;
         }
 
-        console.log(!this.getCurrentFrame(event), !(this.getCurrentFrame(event).dataset.turboFormRedirect));
         if (!this.getCurrentFrame(event) || !this.getCurrentFrame(event).dataset.turboFormRedirect ) {
-            console.log('2');
             return;
         }
 
