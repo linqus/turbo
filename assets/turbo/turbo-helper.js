@@ -26,6 +26,10 @@ const TurboHelper = class {
             this.beforeFetchResponse(event);
         });
 
+        document.addEventListener('turbo:before-fetch-request', (event) => {
+            this.beforeFetchRequest(event);
+        });
+
 
         this.initializeTransitions();
     }
@@ -115,6 +119,25 @@ const TurboHelper = class {
         event.preventDefault();
         Turbo.cache.clear();
         Turbo.visit(fetchResponse.location);
+    }
+
+    beforeFetchRequest(event) {
+
+        const frameId = event.detail.fetchOptions.headers['Turbo-Frame'];
+        if (!frameId) {
+            return;
+        }
+
+        const frame = document.getElementById(frameId);
+
+        if (!frame || !frame.dataset.turboFormRedirect) {
+            return;
+        }
+
+        event.detail.fetchOptions.headers['Turbo-Form-Redirect'] = 1;
+
+        console.log(event.detail.fetchOptions);
+
     }
 
     getCurrentFrame(event) {
