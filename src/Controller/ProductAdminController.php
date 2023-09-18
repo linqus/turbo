@@ -49,7 +49,7 @@ class ProductAdminController extends AbstractController
                 return new Response(null, 204);
             }
 
-            return $this->redirectToRoute('app_product_reviews', [
+            return $this->redirectToRoute('product_admin_index', [
                 'id' => $product->getId(),
             ]);
         }
