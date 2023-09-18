@@ -90,7 +90,7 @@ const TurboHelper = class {
         });
     }
 
-    beforeFetchResponse(event) {
+    async beforeFetchResponse(event) {
 
         const fetchResponse = event.detail.fetchResponse;
 
@@ -104,7 +104,12 @@ const TurboHelper = class {
 
         event.preventDefault();
         Turbo.cache.clear();
-        Turbo.visit(fetchResponse.location);
+        console.log(fetchResponse);
+        const snapshot = Turbo.PageSnapshot.fromHTMLString(await fetchResponse.responseHTML);
+        Turbo.navigator.view.snapshotCache.put(fetchResponse.location, snapshot);
+        Turbo.visit(fetchResponse.location, {
+            action: 'restore'
+        });
     }
 
     getCurrentFrame(event) {
