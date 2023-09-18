@@ -5,9 +5,11 @@ import * as Turbo from '@hotwired/turbo';
 export default class extends Controller {
     static targets = ['modal'];
     modal = null;
+    boundBeforeFetchResponse = null;
 
     connect() {
-        this.element.addEventListener('turbo:before-fetch-response',this.beforeFetchResponse);
+        this.boundBeforeFetchResponse = this.beforeFetchResponse.bind(this);
+        this.element.addEventListener('turbo:before-fetch-response',this.boundBeforeFetchResponse);
     }
 
     async openModal(event) {
