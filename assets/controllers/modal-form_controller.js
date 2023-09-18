@@ -12,6 +12,11 @@ export default class extends Controller {
         this.element.addEventListener('turbo:before-fetch-response',this.boundBeforeFetchResponse);
     }
 
+    disconnect() {
+        // this is not needed since event listener is attached to element not document
+        this.element.removeEventListener('turbo:before-fetch-response',this.boundBeforeFetchResponse);
+    }
+
     async openModal(event) {
         this.modal = new Modal(this.modalTarget);
         this.modal.show();
