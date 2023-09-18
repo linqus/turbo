@@ -12,6 +12,10 @@ const TurboHelper = class {
 
         })
         
+        document.addEventListener('turbo:before-fetch-response', (event) => {
+            this.beforeFetchResponse(event);
+        });
+
 
         this.initializeTransitions();
     }
@@ -84,6 +88,34 @@ const TurboHelper = class {
                 });
             }
         });
+    }
+
+    beforeFetchResponse(event) {
+
+        const fetchResponse = event.detail.fetchResponse;
+
+        if (!fetchResponse.succeeded || !fetchResponse.redirected) {
+            return;
+        }
+
+        console.log(!this.getCurrentFrame(event), !(this.getCurrentFrame(event).dataset.turboFormRedirect));
+        if (!this.getCurrentFrame(event) || !this.getCurrentFrame(event).dataset.turboFormRedirect ) {
+            console.log('2');
+            return;
+        }
+
+        event.preventDefault();
+        Turbo.visit(fetchResponse.location);
+    }
+
+    getCurrentFrame(event) {
+        
+        let turboFrame 
+        //turboFrame = event.target.closest('turbo-frame');
+        //console.log(turboFrame);
+        turboFrame = document.querySelector('turbo-frame[busy]');
+        //console.log(turboFrame);
+        return turboFrame;
     }
 } 
 
