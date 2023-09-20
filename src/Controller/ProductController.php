@@ -87,12 +87,16 @@ class ProductController extends AbstractController
                 $entityManager->persist($reviewForm->getData());
                 $entityManager->flush();
 
+                if (TurboBundle::STREAM_FORMAT === $request->getPreferredFormat()) {
+                    $request->setRequestFormat(TurboBundle::STREAM_FORMAT);
+                    return $this->render('product/reviews.stream.html.twig', [
+                        'product' => $product,
+                    ]);
+                }
+                
                 $this->addFlash('review_success', 'Thanks for your review! I like you!');
 
-                $request->setRequestFormat(TurboBundle::STREAM_FORMAT);
-                return $this->render('product/reviews.stream.html.twig', [
-                    'product' => $product
-                ]);
+
 
                 return $this->redirectToRoute('app_product_reviews', [
                     'id' => $product->getId(),
