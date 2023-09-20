@@ -14,6 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\UX\Turbo\TurboBundle;
 
 class ProductController extends AbstractController
 {
@@ -88,11 +89,18 @@ class ProductController extends AbstractController
 
                 $this->addFlash('review_success', 'Thanks for your review! I like you!');
 
+                $request->setRequestFormat(TurboBundle::STREAM_FORMAT);
+                return $this->render('product/reviews.stream.html.twig', [
+                    'product' => $product
+                ]);
+
                 return $this->redirectToRoute('app_product_reviews', [
                     'id' => $product->getId(),
                 ]);
             }
         }
+
+        
 
         return $this->renderForm('product/reviews.html.twig', [
             'product' => $product,
