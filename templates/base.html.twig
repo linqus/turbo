@@ -66,7 +66,7 @@
                     </ul>
                 </nav>
             </header>
-
+            <div id="flash-container" data-turbo-cache="false">
             {% for flash in app.session.flashBag.get('success') %}
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     {{ flash }}
@@ -76,6 +76,7 @@
                 </div>
 
             {% endfor %}
+            </div>
         </div>
 
         {% block body %}{% endblock %}
