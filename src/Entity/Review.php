@@ -5,10 +5,12 @@ namespace App\Entity;
 use App\Repository\ReviewRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\UX\Turbo\Attribute\Broadcast;
 
 /**
  * @ORM\Entity(repositoryClass=ReviewRepository::class)
  */
+#[Broadcast()]
 class Review
 {
     /**
