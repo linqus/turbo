@@ -1,3 +1,5 @@
+<div {{ turbo_stream_listen('product-reviews') }}></div>
+
 <turbo-frame id="review-list">
 {% for review in product.reviews %}
     <div class="component-light my-3 p-3">
