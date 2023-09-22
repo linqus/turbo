@@ -18,9 +18,32 @@
 {% endblock %}
 
 {% block update %}
-    UPDATE!
+
+    <turbo-stream action="update" target="product-{{ entity.product.id }}-quick-stats">
+        <template>
+            {{ include('product/_quickStats.html.twig', {
+                product: entity.product
+            }) }}
+        </template>
+    </turbo-stream>
+
+    <turbo-stream action="replace" target="product-review-{{ entity.id }}">
+        <template>
+            {{ include('product/_review.html.twig', {
+                review: entity,
+                isNew: true
+            }) }}
+        </template>
+    </turbo-stream>
 {% endblock %}
 
 {% block remove %}
-    REMOVE!
+    <turbo-stream action="replace" target="product-review-{{ id }}">
+        <template>
+            {{ include('product/_review.html.twig', {
+                review: entity,
+                isRemoved: true
+            }) }}
+        </template>
+    </turbo-stream>
 {% endblock %}
