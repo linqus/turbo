@@ -193,6 +193,10 @@ h1 {
     background-color: lightgreen;
 }
 
+.streamed-removed-item {
+    background-color: lightcoral;
+}
+
 .fade-background {
     transition: background-color 1000ms;
 }
