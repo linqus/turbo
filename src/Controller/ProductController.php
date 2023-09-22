@@ -14,6 +14,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mercure\HubInterface;
+use Symfony\Component\Mercure\Update;
 use Symfony\UX\Turbo\TurboBundle;
 
 class ProductController extends AbstractController
@@ -70,7 +72,7 @@ class ProductController extends AbstractController
     /**
      * @Route("/product/{id}/reviews", name="app_product_reviews")
      */
-    public function productReviews(Product $product, CategoryRepository $categoryRepository, Request $request, EntityManagerInterface $entityManager)
+    public function productReviews(Product $product, CategoryRepository $categoryRepository, Request $request, EntityManagerInterface $entityManager, HubInterface $mercureHub)
     {
         $reviewForm = null;
 
@@ -87,13 +89,14 @@ class ProductController extends AbstractController
                 $entityManager->persist($reviewForm->getData());
                 $entityManager->flush();
 
-                if (TurboBundle::STREAM_FORMAT === $request->getPreferredFormat()) {
-                    $request->setRequestFormat(TurboBundle::STREAM_FORMAT);
-                    return $this->render('product/reviews.stream.html.twig', [
+                $update = new Update(
+                    'product-reviews',
+                    $this->renderView('product/reviews.stream.html.twig', [
                         'product' => $product,
-                    ]);
-                }
-                
+                    ])
+                );
+                $mercureHub->publish($update);
+
                 $this->addFlash('review_success', 'Thanks for your review! I like you!');
 
 
