@@ -93,6 +93,7 @@ class ProductController extends AbstractController
                     'product-reviews',
                     $this->renderView('product/reviews.stream.html.twig', [
                         'product' => $product,
+                        'newReview' => $reviewForm->getData(),
                     ])
                 );
                 $mercureHub->publish($update);
